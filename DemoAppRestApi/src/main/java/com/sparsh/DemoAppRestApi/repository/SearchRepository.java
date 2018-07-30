@@ -19,7 +19,15 @@ public interface SearchRepository extends JpaRepository <SearchModel, Long> {
 	//select * from company_details where company_name like 'ros%';
 	//List<SearchModel> findByCompanyNameStartingWith(String company_name);
 	
-	@Query("SELECT count(p) FROM company_details p WHERE p.company_name LIKE %:searchTerm%")
-    public List<SearchModel> searchWithJPQLQuery(@Param("searchTerm") String searchTerm);
+	//@Query("SELECT count(p) FROM SearchModel p WHERE p.country_code LIKE %:searchTerm%")
+	//@Query("SELECT p FROM SearchModel p WHERE LOWER(p.company_name) = LOWER(:searchTerm)")
+	//@Query("select count(p) from SearchModel where company_name like 'searchTerm%'")
+	//@Query("select u. from SearchModel u where u.company_name like %?1")
+	
+	
+	
+	//@Query("SELECT u FROM SearchModel u WHERE u.company_name LIKE CONCAT('%',:searchTerm,'%')")
+	@Query("SELECT u FROM SearchModel u WHERE u.company_name LIKE :searchTerm%")
+    List<SearchModel> searchWithJPQLQuery(@Param("searchTerm") String searchTerm);
 	
 }
